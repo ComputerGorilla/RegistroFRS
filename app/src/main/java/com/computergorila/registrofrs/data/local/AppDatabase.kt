@@ -1,13 +1,12 @@
 package com.computergorila.registrofrs.data.local
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-
-@Database(entities = [IncidenciaEntity::class], version = 1)
+@Database(entities = [IncidenciaEntity::class, MesEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun incidenciaDao(): IncidenciaDao
 
     companion object {
@@ -20,7 +19,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "incidencias_db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
