@@ -1,4 +1,4 @@
-package com.computergorila.registrofrs.ui.main
+package com.computergorila.registrofrs.main
 
 import android.os.Build
 import android.os.Bundle
@@ -39,17 +39,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation(repository: IncidenciaRepository) {
     val navController = rememberNavController()
-
-    // Creamos el factory UNA VEZ para usarlo en todas las pantallas
     val factory = ViewModelFactory(repository)
 
     NavHost(
         navController = navController,
         startDestination = Destinos.MESES
     ) {
-        // --- PANTALLA DE MESES ---
         composable(Destinos.MESES) {
-            // ERROR CORREGIDO AQUÍ: Ahora pasamos el factory
             val monthsViewModel: MonthsViewModel = viewModel(factory = factory)
             MonthsScreen(
                 viewModel = monthsViewModel,
@@ -59,7 +55,6 @@ fun AppNavigation(repository: IncidenciaRepository) {
             )
         }
 
-        // --- PANTALLA DE DÍAS ---
         composable(
             route = Destinos.DIAS,
             arguments = listOf(navArgument("mesNombre") { type = NavType.StringType })
@@ -74,7 +69,6 @@ fun AppNavigation(repository: IncidenciaRepository) {
             )
         }
 
-        // --- PANTALLA DE REGISTRO ---
         composable(
             route = Destinos.REGISTRO,
             arguments = listOf(
@@ -85,7 +79,6 @@ fun AppNavigation(repository: IncidenciaRepository) {
             val mes = backStackEntry.arguments?.getString("mesNombre") ?: ""
             val dia = backStackEntry.arguments?.getInt("dia") ?: 1
 
-            // Usamos el mismo factory aquí
             val incidenciaViewModel: IncidenciaViewModel = viewModel(factory = factory)
 
             HomeContent(

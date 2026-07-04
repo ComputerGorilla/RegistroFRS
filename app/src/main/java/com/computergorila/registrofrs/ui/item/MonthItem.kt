@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,10 +26,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MonthItem(nombre: String, onClick: () -> Unit, onDelete: () -> Unit) {
+fun MonthItem(
+    nombre: String,
+    onClick: () -> Unit,
+    onDelete: () -> Unit,
+    onExport: () -> Unit
+) {
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
 
     Card(
@@ -45,7 +52,9 @@ fun MonthItem(nombre: String, onClick: () -> Unit, onDelete: () -> Unit) {
             Icon(Icons.Default.DateRange, contentDescription = null)
             Spacer(Modifier.width(16.dp))
             Text(text = nombre, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-
+            IconButton(onClick = { onExport() }) {
+                Icon(Icons.Default.Share, contentDescription = "Enviar", tint = Color.Blue)
+            }
             IconButton(onClick = { confirmDelete = true }) {
                 Icon(Icons.Default.Delete, contentDescription = "Borrar", tint = Color.Red)
             }
@@ -65,6 +74,19 @@ fun MonthItem(nombre: String, onClick: () -> Unit, onDelete: () -> Unit) {
             dismissButton = {
                 TextButton(onClick = { confirmDelete = false }) { Text("CANCELAR") }
             }
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Item Individual")
+@Composable
+fun MonthItemPreview() {
+    MaterialTheme {
+        MonthItem(
+            nombre = "ABRIL",
+            onClick = { /* No hace nada en preview */ },
+            onDelete = { /* nada de nada */ },
+            onExport = { /* No hace nada en preview */ }
         )
     }
 }

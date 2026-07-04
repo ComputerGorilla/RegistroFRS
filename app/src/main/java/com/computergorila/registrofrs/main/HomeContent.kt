@@ -1,4 +1,4 @@
-package com.computergorila.registrofrs.ui.main
+package com.computergorila.registrofrs.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -6,8 +6,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -56,7 +56,6 @@ fun HomeContent(
             )
         }
     ) { paddingValues ->
-        // Lista de paradas basada en tu Excel
         val listaParadas = getListaParadas()
 
         LazyColumn(
@@ -99,7 +98,6 @@ fun ParadaRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Nombre de la parada e ID
             Column(modifier = Modifier.weight(1f)) {
                 Text(text = parada.nombre, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 Text(text = "ID: ${parada.id}", color = Color.Gray, fontSize = 12.sp)
@@ -107,17 +105,16 @@ fun ParadaRow(
 
             // Controles de contador
             Row(verticalAlignment = Alignment.CenterVertically) {
-                // Botón Menos
+
                 FilledIconButton(
                     onClick = onDecrement,
                     modifier = Modifier.size(35.dp),
                     shape = CircleShape,
                     colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color(0xFFE57373))
                 ) {
-                    Icon(Icons.Default.Delete, contentDescription = "Restar", tint = Color.White)
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Restar", tint = Color.White)
                 }
 
-                // Cantidad
                 Text(
                     text = cantidad.toString(),
                     modifier = Modifier.padding(horizontal = 16.dp),
@@ -126,14 +123,13 @@ fun ParadaRow(
                     color = if (cantidad > 0) MaterialTheme.colorScheme.primary else Color.Black
                 )
 
-                // Botón Más
                 FilledIconButton(
                     onClick = onIncrement,
                     modifier = Modifier.size(35.dp),
                     shape = CircleShape,
                     colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color(0xFF81C784))
                 ) {
-                    Icon(Icons.Default.Add, contentDescription = "Sumar", tint = Color.White)
+                    Icon(Icons.Default.ArrowForward, contentDescription = "Sumar", tint = Color.White)
                 }
             }
         }
@@ -141,15 +137,35 @@ fun ParadaRow(
 }
 fun getListaParadas(): List<Parada> {
     return listOf(
-        Parada("P20", "CIUTADELLA-VO", 0),
-        Parada("P21", "WELLINGTON", 0),
-        Parada("P22", "MARINA", 0),
-        Parada("P02", "AUDITORI-TNC", 0),
-        Parada("P31", "GLORIES", 0),
-        Parada("P32", "MONUMENTAL", 0),
-        Parada("P33", "SICILIA", 0),
+        Parada("P30", "EST DE ST ADRIÀ", 0),
+        Parada("P29", "PORT FÒRUM", 0),
+        Parada("P10", "CAMPUS DIAGONAL", 0),
+        Parada("P09", "FÒRUM", 0),
+        Parada("P08", "EL MARESME", 0),
+        Parada("P07", "SELVA DE MAR", 0),
+        Parada("P06", "FLUVIÀ", 0),
+        Parada("P05", "PERE IV", 0),
+        Parada("P04", "CA L'ARANYÓ", 0),
         Parada("P34", "VERDAGUER", 0),
-        Parada("P04", "CA L'ARANYÓ", 0)
+        Parada("P33", "SICILIA", 0),
+        Parada("P32", "MONUMENTAL", 0),
+        Parada("P31", "GLORIES", 0),
+        Parada("P02", "AUDITORI-TNC", 0),
+        Parada("P22", "MARINA", 0),
+        Parada("P21", "WELLINGTON", 0),
+        Parada("P20", "CIUTADELLA-VO", 0),
+        Parada("P27", "ALFONS EL MAGNÀNIM", 0),
+        Parada("P28", "PARC DE BESÒS", 0),
+        Parada("P11", "LA MINA", 0),
+        Parada("P13", "LA CATALANA", 0),
+        Parada("P14", "ST JOAN BAPTISTA", 0),
+        Parada("P16", "ENCANTS DE ST ADRIÀ", 0),
+        Parada("P17", "ST ROC", 0),
+        Parada("P19", "GORG", 0),
+        Parada("P23", "CAN JAUMANDREU", 0),
+        Parada("P24", "ESPRONCEDA", 0),
+        Parada("P25", "ST MARTÍ DE PROVENÇALS", 0),
+        Parada("P26", "BESÒS", 0)
     )
 }
 
